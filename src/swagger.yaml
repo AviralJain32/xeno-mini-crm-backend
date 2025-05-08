@@ -1,0 +1,45 @@
+openapi: 3.0.0
+info:
+  title: Xeno CRM API
+  version: 1.0.0
+paths:
+  /api/customers:
+    post:
+      summary: Create a customer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                email:
+                  type: string
+                phone:
+                  type: string
+      responses:
+        '202':
+          description: Customer queued
+
+  /api/orders:
+    post:
+      summary: Create an order
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                customerId:
+                  type: string
+                amount:
+                  type: number
+                date:
+                  type: string
+                  format: date-time
+      responses:
+        '202':
+          description: Order queued
