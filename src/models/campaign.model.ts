@@ -6,8 +6,8 @@ export interface CampaignDocument extends Document {
   userId: Types.ObjectId;
   message: string;
   audienceSize: number;
-  sent: number;
-  failed: number;
+  // sent: number;
+  // failed: number;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -19,8 +19,8 @@ const CampaignSchema = new Schema<CampaignDocument>(
     userId: { type: Schema.Types.ObjectId, ref: 'User', required: true },
     message: { type: String, required: true },
     audienceSize: { type: Number, required: true },
-    sent: { type: Number, default: 0 },
-    failed: { type: Number, default: 0 },
+    // sent: { type: Number, default: 0 },
+    // failed: { type: Number, default: 0 },
   },
   { timestamps: true }
 );

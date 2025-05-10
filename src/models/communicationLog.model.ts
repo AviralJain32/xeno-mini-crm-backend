@@ -1,6 +1,7 @@
 import mongoose, { Document, Schema, Types } from 'mongoose';
 
 export interface CommunicationLogDocument extends Document {
+  campaignOwnerId:Types.ObjectId;
   campaignId: Types.ObjectId;
   customerId: Types.ObjectId;
   message: string;
@@ -12,6 +13,7 @@ export interface CommunicationLogDocument extends Document {
 
 const CommunicationLogSchema = new Schema<CommunicationLogDocument>(
   {
+    campaignOwnerId:{ type: Schema.Types.ObjectId, ref: 'Campaign', required: true },
     campaignId: { type: Schema.Types.ObjectId, ref: 'Campaign', required: true },
     customerId: { type: Schema.Types.ObjectId, ref: 'Customer', required: true },
     message: { type: String, required: true },

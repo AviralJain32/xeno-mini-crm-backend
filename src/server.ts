@@ -24,3 +24,4 @@ const startServer = async () => {
 };
 
 startServer();
+// nodemon --watch 'src/**/*.ts' --exec ts-node src/server.ts
