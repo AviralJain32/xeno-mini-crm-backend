@@ -29,11 +29,12 @@ router.get(
 
     // Set token in HTTP-only secure cookie
     res.cookie('token', token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production', // set true in production
-      sameSite: 'strict',
-      maxAge: 3600 * 1000 * 24, // 1 hour
-    });
+    httpOnly: true,
+    secure: true, 
+    // secure: process.env.NODE_ENV === 'production', 
+    sameSite: 'none',                              
+    maxAge: 3600 * 1000 * 24,                     
+  });
     console.log('mai yaha hu');
     res.redirect(`${process.env.FRONTEND_URL}/dashboard`);
   },
