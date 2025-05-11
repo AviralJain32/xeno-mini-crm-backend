@@ -22,7 +22,7 @@ export const startKafkaConsumer = async () => {
 
         // Call the vendor API (simulate delivery)
         await axios.post(
-          'http://localhost:5000/api/communicationlogs/vendor/send',
+          `${process.env.BACKEND_URL}/api/communicationlogs/vendor/send`,
           {
             deliveryId: data.logId,
             message: data.message,

@@ -1,11 +1,14 @@
 // src/config/passport.ts
 import passport from 'passport';
+import dotenv from 'dotenv';
 import {
   Strategy as GoogleStrategy,
   Profile,
   VerifyCallback,
 } from 'passport-google-oauth20';
 import { User, UserDocument } from '../models/user.model';
+
+dotenv.config();
 
 passport.serializeUser((user: Express.User, done) => {
   // Cast to UserDocument to access `.id`
@@ -24,10 +27,9 @@ passport.deserializeUser(async (id: string, done) => {
 passport.use(
   new GoogleStrategy(
     {
-      clientID:
-        '294812750606-b9c9suuio2ta05t15k73reijr03gnl17.apps.googleusercontent.com',
-      clientSecret: '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',
-      callbackURL: 'http://localhost:5000/api/auth/google/callback',
+      clientID:process.env.GOOGLE_CLIENT_ID!,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+      callbackURL: process.env.GOOGLE_CALLBACK_URL!,
     },
     async (
       _accessToken: string,

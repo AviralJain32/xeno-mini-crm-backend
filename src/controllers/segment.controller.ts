@@ -31,14 +31,6 @@ async function calcAudienceSize(mongoQuery: any) {
     }
   }
 
-  // const parseResult = MongoQuerySchema.safeParse(mongoQuery);
-
-  // if (!parseResult.success) {
-  //   throw new ApiError(400, 'Invalid MongoDB query format', parseResult.error.errors);
-  // }
-  // console.log("parseResult : ",parseResult)
-  // const mongoQueryParsed = parseResult.data;
-
   const audienceSize = await Customer.countDocuments(cleanMongoDbQuery);
 
   return { audienceSize, cleanMongoDbQuery };

@@ -30,7 +30,7 @@ app.use(cookieParser());
 app.use(bodyParser.json());
 
 app.use(
-  session({ secret: 'xenominicrm', resave: false, saveUninitialized: true }),
+  session({ secret: process.env.SESSION_SECRET!, resave: false, saveUninitialized: true }),
 );
 app.use(passport.initialize());
 app.use(passport.session());

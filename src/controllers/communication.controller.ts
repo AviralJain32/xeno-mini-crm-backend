@@ -31,7 +31,7 @@ export const vendorSend = async (
 
     // Simulate calling the delivery receipt API
     const response = await fetch(
-      'http://localhost:5000/api/communicationlogs/delivery-receipt',
+      `${process.env.BACKEND_URL}/api/communicationlogs/delivery-receipt`,
       {
         method: 'POST',
         headers: {

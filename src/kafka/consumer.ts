@@ -1,35 +1,3 @@
-// import { kafka } from '../config/kafka.config';
-// import { Customer } from '../models/customer.model';
-// import { Order } from '../models/order.model';
-
-// const consumer = kafka.consumer({ groupId: 'xeno-group' });
-
-// export const connectConsumer = async () => {
-//   await consumer.connect();
-//   console.log('[Kafka] Consumer connected');
-
-//   await consumer.subscribe({ topic: 'customers', fromBeginning: false });
-//   await consumer.subscribe({ topic: 'orders', fromBeginning: false });
-
-//   await consumer.run({
-//     eachMessage: async ({ topic, message }) => {
-//       if (!message.value) return;
-//       const data = JSON.parse(message.value.toString());
-
-//       switch (topic) {
-//         case 'customers':
-//           await Customer.create(data);
-//           console.log('[Kafka] Customer saved:', data.name);
-//           break;
-//         case 'orders':
-//           await Order.create(data);
-//           console.log('[Kafka] Order saved:', data.customerId);
-//           break;
-//       }
-//     },
-//   });
-// };
-
 import { kafka } from '../config/kafka.config';
 import { Customer } from '../models/customer.model';
 import { Order } from '../models/order.model';
