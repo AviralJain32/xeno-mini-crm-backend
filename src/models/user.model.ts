@@ -16,7 +16,7 @@ const UserSchema = new Schema<UserDocument>(
     googleId: { type: String, required: true },
     avatar: { type: String },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 export const User = mongoose.model<UserDocument>('User', UserSchema);

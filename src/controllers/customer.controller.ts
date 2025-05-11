@@ -26,7 +26,6 @@
 //   }
 // };
 
-
 import { Request, Response, NextFunction } from 'express';
 import { sendKafkaMessage } from '../kafka/producer';
 import { z } from 'zod';
@@ -45,22 +44,26 @@ const customerSchema = z.object({
 export const createCustomer = async (
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ) => {
   try {
     const parsed = customerSchema.parse(req.body);
 
     await sendKafkaMessage('customers', parsed);
 
-    const response = new ApiResponse(202, null, 'Customer queued for creation.');
+    const response = new ApiResponse(
+      202,
+      null,
+      'Customer queued for creation.',
+    );
     res.status(202).json(response);
-  } catch (err:any) {
-    console.log(err)
+  } catch (err: any) {
+    console.log(err);
     if (err instanceof z.ZodError) {
       return next(new ApiError(400, 'Validation failed', err.errors));
     }
     return next(
-      new ApiError(500,err?.message || 'Failed to publish customer data', [])
+      new ApiError(500, err?.message || 'Failed to publish customer data', []),
     );
   }
 };

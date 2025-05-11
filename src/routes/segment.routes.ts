@@ -1,5 +1,8 @@
 import { Router } from 'express';
-import { previewAudience, saveSegment } from '../controllers/segment.controller';
+import {
+  previewAudience,
+  saveSegment,
+} from '../controllers/segment.controller';
 
 const router = Router();
 

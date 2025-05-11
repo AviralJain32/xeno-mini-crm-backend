@@ -1,6 +1,10 @@
 // src/config/passport.ts
 import passport from 'passport';
-import { Strategy as GoogleStrategy, Profile, VerifyCallback } from 'passport-google-oauth20';
+import {
+  Strategy as GoogleStrategy,
+  Profile,
+  VerifyCallback,
+} from 'passport-google-oauth20';
 import { User, UserDocument } from '../models/user.model';
 
 passport.serializeUser((user: Express.User, done) => {
@@ -20,15 +24,16 @@ passport.deserializeUser(async (id: string, done) => {
 passport.use(
   new GoogleStrategy(
     {
-      clientID: "294812750606-b9c9suuio2ta05t15k73reijr03gnl17.apps.googleusercontent.com",
-      clientSecret: "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",
+      clientID:
+        '294812750606-b9c9suuio2ta05t15k73reijr03gnl17.apps.googleusercontent.com',
+      clientSecret: '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',
       callbackURL: 'http://localhost:5000/api/auth/google/callback',
     },
     async (
       _accessToken: string,
       _refreshToken: string,
       profile: Profile,
-      done: VerifyCallback
+      done: VerifyCallback,
     ): Promise<void> => {
       try {
         const existingUser = await User.findOne({ googleId: profile.id });
@@ -48,6 +53,6 @@ passport.use(
       } catch (error) {
         done(error as Error);
       }
-    }
-  )
+    },
+  ),
 );

@@ -1,8 +1,12 @@
 import { Router } from 'express';
-import { saveCampaign } from '../controllers/campaign.controller';
+import {
+  getAllCampaigns,
+  saveCampaign,
+} from '../controllers/campaign.controller';
 
 const router = Router();
 
 router.post('/', saveCampaign);
+router.get('/allCampaign', getAllCampaigns);
 
 export default router;

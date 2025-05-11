@@ -1,4 +1,4 @@
-import mongoose, { Schema, Document, Types } from "mongoose";
+import mongoose, { Schema, Document, Types } from 'mongoose';
 
 // export type OperatorType = '>' | '<' | '=' | 'in' | 'days_ago';
 // export type FieldType = 'totalSpend' | 'visits' | 'lastVisit';
@@ -49,7 +49,7 @@ const SegmentSchema: Schema<SegmentDocument> = new Schema<SegmentDocument>(
   {
     userId: {
       type: Schema.Types.ObjectId,
-      ref: "User",
+      ref: 'User',
       required: true,
     },
     name: {
@@ -57,9 +57,9 @@ const SegmentSchema: Schema<SegmentDocument> = new Schema<SegmentDocument>(
       required: true,
     },
     rules: {
-      type:Schema.Types.Mixed,
-      required: true, 
-      default: "{}",    
+      type: Schema.Types.Mixed,
+      required: true,
+      default: {},
     },
     audienceSize: {
       type: Number,
@@ -68,7 +68,10 @@ const SegmentSchema: Schema<SegmentDocument> = new Schema<SegmentDocument>(
   },
   {
     timestamps: true,
-  }
+  },
 );
 
-export const Segment = mongoose.model<SegmentDocument>("Segment", SegmentSchema);
+export const Segment = mongoose.model<SegmentDocument>(
+  'Segment',
+  SegmentSchema,
+);

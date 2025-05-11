@@ -30,7 +30,6 @@
 //   });
 // };
 
-
 import { kafka } from '../config/kafka.config';
 import { Customer } from '../models/customer.model';
 import { Order } from '../models/order.model';
@@ -40,7 +39,7 @@ const consumer = kafka.consumer({ groupId: 'xeno-group' });
 
 const MAX_RETRIES = 3;
 
-const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
+const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 export const connectConsumer = async () => {
   await consumer.connect();
@@ -72,7 +71,10 @@ export const connectConsumer = async () => {
           success = true; // mark as processed
         } catch (err) {
           retries++;
-          console.error(`[Kafka] Error processing ${topic} message (attempt ${retries}):`, err);
+          console.error(
+            `[Kafka] Error processing ${topic} message (attempt ${retries}):`,
+            err,
+          );
           if (retries < MAX_RETRIES) {
             await delay(2 ** retries * 100); // exponential backoff
           }
@@ -82,7 +84,7 @@ export const connectConsumer = async () => {
       // If all retries failed, send to dead-letter topic
       if (!success) {
         console.warn(`[Kafka] Sending failed ${topic} message to dead-letter`);
-        await sendKafkaMessage('dead-letter',{
+        await sendKafkaMessage('dead-letter', {
           messages: [
             {
               key: topic,

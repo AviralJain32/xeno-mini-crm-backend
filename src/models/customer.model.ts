@@ -20,7 +20,10 @@ const CustomerSchema = new Schema<CustomerDocument>(
     visits: { type: Number, default: 0 },
     lastVisit: { type: Date },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
-export const Customer = mongoose.model<CustomerDocument>('Customer', CustomerSchema);
+export const Customer = mongoose.model<CustomerDocument>(
+  'Customer',
+  CustomerSchema,
+);

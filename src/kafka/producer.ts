@@ -13,3 +13,13 @@ export const sendKafkaMessage = async (topic: string, message: unknown) => {
     messages: [{ value: JSON.stringify(message) }],
   });
 };
+
+export const sendKafkaMessageForDelivery = async (
+  topic: string,
+  messages: unknown[],
+) => {
+  await producer.send({
+    topic,
+    messages: messages.map((msg) => ({ value: JSON.stringify(msg) })),
+  });
+};

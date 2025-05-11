@@ -22,7 +22,10 @@ const CampaignSchema = new Schema<CampaignDocument>(
     // sent: { type: Number, default: 0 },
     // failed: { type: Number, default: 0 },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
-export const Campaign = mongoose.model<CampaignDocument>('Campaign', CampaignSchema);
+export const Campaign = mongoose.model<CampaignDocument>(
+  'Campaign',
+  CampaignSchema,
+);

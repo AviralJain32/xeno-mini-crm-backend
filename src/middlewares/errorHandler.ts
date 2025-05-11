@@ -5,12 +5,12 @@ export const errorHandler = (
   err: ApiError,
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ) => {
   console.error(err);
 
   res.status(err.statusCode || 500).json({
-    status:err.statusCode,
+    status: err.statusCode,
     success: false,
     message: err.message || 'Internal Server Error',
     errors: err.errors || [],

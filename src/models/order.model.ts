@@ -10,11 +10,15 @@ export interface OrderDocument extends Document {
 
 const OrderSchema = new Schema<OrderDocument>(
   {
-    customerId: { type: Schema.Types.ObjectId, ref: 'Customer', required: true },
+    customerId: {
+      type: Schema.Types.ObjectId,
+      ref: 'Customer',
+      required: true,
+    },
     amount: { type: Number, required: true },
     date: { type: Date, required: true },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 export const Order = mongoose.model<OrderDocument>('Order', OrderSchema);

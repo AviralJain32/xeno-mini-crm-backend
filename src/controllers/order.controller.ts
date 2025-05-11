@@ -13,7 +13,7 @@ export const orderSchema = z.object({
 export const createOrder = async (
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ) => {
   try {
     const validatedData = orderSchema.parse(req.body);
@@ -23,13 +23,18 @@ export const createOrder = async (
 
     const response = new ApiResponse(202, null, 'Order queued for creation.');
     res.status(202).json(response);
-  } catch (err:any) {
+  } catch (err: any) {
     if (err instanceof z.ZodError) {
       return next(new ApiError(400, 'Validation failed', err.errors));
     }
 
     return next(
-      new ApiError(err.statusCode||500,err?.message || 'Failed to publish order data', [], err?.stack)
+      new ApiError(
+        err.statusCode || 500,
+        err?.message || 'Failed to publish order data',
+        [],
+        err?.stack,
+      ),
     );
   }
 };

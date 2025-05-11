@@ -1,15 +1,48 @@
-import { Request, Response } from 'express';
+import { Request, Response, NextFunction } from 'express';
+import jwt from 'jsonwebtoken';
+import { User } from '../models/user.model';
+import { ApiError } from '../utils/ApiError';
+import { ApiResponse } from '../utils/ApiResponse';
 
-export const handleGoogleCallback = (_req: Request, res: Response) => {
-  res.redirect(`${process.env.FRONTEND_URL}/dashboard`);
-};
+export const checkUser = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    const token = req.cookies?.token;
 
-export const getCurrentUser = (req: Request, res: Response) => {
-  res.send(req.user);
-};
+    if (!token) {
+      throw new ApiError(401, 'Unauthorized: No token provided');
+    }
 
-export const logoutUser = (req: Request, res: Response) => {
-  req.logout(() => {
-    res.redirect('/');
-  });
+    let decoded: any;
+    try {
+      decoded = jwt.verify(token, process.env.JWT_SECRET!);
+    } catch (err) {
+      throw new ApiError(401, 'Unauthorized: Invalid or expired token');
+    }
+
+    const user = await User.findById(decoded.id).select('-__v -password');
+
+    if (!user) {
+      throw new ApiError(404, 'User not found');
+    }
+
+    const response = new ApiResponse(
+      200,
+      { user },
+      'User fetched successfully',
+    );
+    res.status(200).json(response);
+  } catch (err: any) {
+    next(
+      new ApiError(
+        err.statusCode || 500,
+        err.message || 'Internal server error while checking user',
+        [],
+        err.stack,
+      ),
+    );
+  }
 };
