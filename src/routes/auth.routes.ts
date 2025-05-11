@@ -36,7 +36,7 @@ router.get(
     maxAge: 3600 * 1000 * 24,                     
   });
     console.log('mai yaha hu');
-    res.redirect(`${process.env.FRONTEND_URL}/dashboard`);
+    res.redirect(`${process.env.FRONTEND_URL}/dashboard/segments`);
   },
 );
 

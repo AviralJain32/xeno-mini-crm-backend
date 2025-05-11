@@ -30,6 +30,7 @@ export const queueCampaignDeliveries = async (
 
     kafkaMessages.push({
       logId: log._id,
+      campaignId: campaign._id,
       message: personalizedMessage,
       phoneNumber: customer.phone,
     });

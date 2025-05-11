@@ -15,7 +15,7 @@ const CommunicationLogSchema = new Schema<CommunicationLogDocument>(
   {
     campaignOwnerId: {
       type: Schema.Types.ObjectId,
-      ref: 'Campaign',
+      ref: 'User',
       required: true,
     },
     campaignId: {

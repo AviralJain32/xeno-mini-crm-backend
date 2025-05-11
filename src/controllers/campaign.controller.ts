@@ -5,6 +5,7 @@ import { ApiResponse } from '../utils/ApiResponse';
 import { UserDocument } from '../models/user.model';
 import { isValidObjectId } from 'mongoose';
 import { queueCampaignDeliveries } from '../services/campaign.service';
+import { CommunicationLog } from '../models/communicationLog.model';
 
 export const saveCampaign = async (
   req: Request,
@@ -52,11 +53,22 @@ export const saveCampaign = async (
     });
 
     await queueCampaignDeliveries(newCampaign, userId);
+    console.log(newCampaign._id)
+    const [sentCount, failedCount] = await Promise.all([
+      CommunicationLog.countDocuments({ campaignId: newCampaign._id, status: 'SENT' }),
+      CommunicationLog.countDocuments({ campaignId: newCampaign._id, status: 'FAILED' }),
+    ]);
 
     const response = new ApiResponse(
       201,
-      newCampaign,
-      'Your message has been send successfully',
+      {
+        campaign: newCampaign,
+        stats: {
+          sent: sentCount,
+          failed: failedCount,
+        },
+      },
+      'Your message has been sent successfully',
     );
     res.status(201).json(response);
   } catch (err: any) {
