@@ -130,29 +130,22 @@ export const saveSegment = async (
     );
   }
 };
-
-
 export const getAllSegments = async (
   req: Request,
   res: Response,
   next: NextFunction,
 ) => {
   try {
-
     const segments = await Segment.find()
-    .populate({
-      path:"userId",
-      select:"name"
-    })
+      .populate({
+        path: 'userId',
+        select: 'name',
+      })
       .select('name audienceSize createdAt userId');
-
-    if (!segments || segments.length === 0) {
-      throw new ApiError(404, 'No segments found');
-    }
 
     const response = new ApiResponse(
       200,
-      {segments},
+      { segments },
       'Segments fetched successfully',
     );
     res.status(200).json(response);

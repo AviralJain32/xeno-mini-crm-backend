@@ -18,7 +18,6 @@ export const startKafkaConsumer = async () => {
     eachBatch: async ({ batch, resolveOffset, heartbeat }) => {
       for (const message of batch.messages) {
         const data = JSON.parse(message.value?.toString() || '{}');
-        console.log('in');
 
         // Call the vendor API (simulate delivery)
         await axios.post(

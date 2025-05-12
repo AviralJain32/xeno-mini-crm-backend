@@ -103,10 +103,6 @@ export const getAllCampaigns = async (
       .select('name message audienceSize segmentId createdAt userId')
       .sort({ createdAt: -1 });
 
-    if (!campaigns || campaigns.length === 0) {
-      throw new ApiError(404, 'No campaigns found');
-    }
-
     const response = new ApiResponse(
       200,
       campaigns,

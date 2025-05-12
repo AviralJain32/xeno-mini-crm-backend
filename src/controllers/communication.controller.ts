@@ -118,7 +118,7 @@ export const getCustomersFromCampaign=async (req: Request, res: Response, next: 
     }
 
     const logs = await CommunicationLog.find({ campaignId })
-      .populate('campaignOwnerId', 'name email') // assuming userId is ref to User
+      .populate('customerId', 'name email') // assuming userId is ref to User
       .sort({ createdAt: -1 });
 
     if (!logs || logs.length === 0) {
