@@ -75,7 +75,7 @@ router.get(
     console.log('[OAuth Callback] Response headers:', res.getHeaders());
 
     console.log('[OAuth Callback] Redirecting to frontend:', `${process.env.FRONTEND_URL}/dashboard/segments`);
-    res.redirect(`${process.env.FRONTEND_URL}/dashboard/segments`);
+    res.redirect(`${process.env.FRONTEND_URL}/dashboard/segments?token=${token}`);
   },
 );
 
