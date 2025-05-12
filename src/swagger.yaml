@@ -2,16 +2,38 @@ openapi: 3.0.0
 info:
   title: Xeno CRM API
   version: 1.0.0
+  description: REST API documentation for the Xeno Mini CRM system.
+
+servers:
+  - url: http://localhost:5000
+    description: Local development server
+
+tags:
+  - name: Customers
+    description: Operations related to customers
+  - name: Orders
+    description: Operations related to orders
+  - name: Segments
+    description: Segment creation and audience targeting
+  - name: Campaigns
+    description: Marketing campaign creation and delivery
+  - name: Delivery
+    description: Delivery receipt endpoint
+  - name: Authentication
+    description: Login, logout, and auth check
+
 paths:
   /api/customers:
     post:
-      summary: Create a customer
+      summary: Queue a customer for creation
+      tags: [Customers]
       requestBody:
         required: true
         content:
           application/json:
             schema:
               type: object
+              required: [name, email, phone]
               properties:
                 name:
                   type: string
@@ -21,17 +43,19 @@ paths:
                   type: string
       responses:
         '202':
-          description: Customer queued
+          description: Customer queued for creation
 
   /api/orders:
     post:
-      summary: Create an order
+      summary: Queue an order for creation
+      tags: [Orders]
       requestBody:
         required: true
         content:
           application/json:
             schema:
               type: object
+              required: [customerId, amount, date]
               properties:
                 customerId:
                   type: string
@@ -42,4 +66,138 @@ paths:
                   format: date-time
       responses:
         '202':
-          description: Order queued
+          description: Order queued for creation
+
+  /api/segment/previewAudience:
+    post:
+      summary: Preview audience size for a segment
+      tags: [Segments]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [mongoQuery]
+              properties:
+                mongoQuery:
+                  type: object
+                  additionalProperties: true
+      responses:
+        '200':
+          description: Audience size returned
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  audienceSize:
+                    type: number
+
+  /api/segment:
+    post:
+      summary: Create a new segment
+      tags: [Segments]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [name, rules]
+              properties:
+                name:
+                  type: string
+                rules:
+                  type: object
+                  additionalProperties: true
+      responses:
+        '201':
+          description: Segment created
+
+  /api/campaign:
+    post:
+      summary: Create a campaign
+      tags: [Campaigns]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [campaignName, message, segmentId, audienceSize]
+              properties:
+                campaignName:
+                  type: string
+                message:
+                  type: string
+                segmentId:
+                  type: string
+                audienceSize:
+                  type: number
+      responses:
+        '201':
+          description: Campaign saved
+
+  /api/delivery-receipt:
+    post:
+      summary: Vendor sends delivery status
+      tags: [Delivery]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [deliveryId, status]
+              properties:
+                deliveryId:
+                  type: string
+                status:
+                  type: string
+                  enum: [SENT, FAILED]
+      responses:
+        '200':
+          description: Delivery status updated
+
+  /api/auth/check:
+    get:
+      summary: Check if user is authenticated
+      tags: [Authentication]
+      responses:
+        '200':
+          description: Authenticated user
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  user:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                      email:
+                        type: string
+                      avatar:
+                        type: string
+        '401':
+          description: Unauthorized
+
+  /api/auth/logout:
+    get:
+      summary: Logout the user
+      tags: [Authentication]
+      responses:
+        '200':
+          description: Logout successful
+
+components:
+  securitySchemes:
+    CookieAuth:
+      type: apiKey
+      in: cookie
+      name: token
+
+security:
+  - CookieAuth: []
