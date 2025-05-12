@@ -40,6 +40,10 @@ app.use(passport.session());
 app.use('/api/auth', authRoutes);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
+app.get('/', (req, res) => {
+  res.send('Xeno CRM backend is live');
+});
+
 app.use(authenticateJWT);
 app.use('/api/customers', customerRoutes);
 app.use('/api/orders', orderRoutes);
