@@ -1,20 +1,20 @@
-// import { Response, Router } from 'express';
-// import passport from 'passport';
-// import jwt from 'jsonwebtoken';
-// import dotenv from 'dotenv';
-// import { User } from '../models/user.model';
-// import { checkUser } from '../controllers/auth.controller';
-// import { ApiResponse } from '../utils/ApiResponse';
+import { Response, Router } from 'express';
+import passport from 'passport';
+import jwt from 'jsonwebtoken';
+import dotenv from 'dotenv';
+import { User } from '../models/user.model';
+import { checkUser } from '../controllers/auth.controller';
+import { ApiResponse } from '../utils/ApiResponse';
 
-// dotenv.config();
-// const router = Router();
+dotenv.config();
+const router = Router();
 
-// router.get(
-//   '/google',
-//   passport.authenticate('google', {
-//     scope: ['profile', 'email'],
-//   }),
-// );
+router.get(
+  '/google',
+  passport.authenticate('google', {
+    scope: ['profile', 'email'],
+  }),
+);
 
 // router.get(
 //   '/google/callback',
@@ -39,25 +39,6 @@
 //     res.redirect(`${process.env.FRONTEND_URL}/dashboard/segments`);
 //   },
 // );
-
-// router.get('/logout', (req, res) => {
-//   res.clearCookie('token');
-//   res.json({ message: 'Logged out' });
-// });
-
-// router.get('/check', checkUser);
-
-// export default router;
-
-import { Response, Router } from 'express';
-import passport from 'passport';
-import jwt from 'jsonwebtoken';
-import dotenv from 'dotenv';
-import { User } from '../models/user.model';
-import { checkUser } from '../controllers/auth.controller';
-import { ApiResponse } from '../utils/ApiResponse';
-
-const router = Router();
 
 router.get(
   '/google/callback',
@@ -97,5 +78,12 @@ router.get(
     res.redirect(`${process.env.FRONTEND_URL}/dashboard/segments`);
   },
 );
+
+router.get('/logout', (req, res) => {
+  res.clearCookie('token');
+  res.json({ message: 'Logged out' });
+});
+
+router.get('/check', checkUser);
 
 export default router;
