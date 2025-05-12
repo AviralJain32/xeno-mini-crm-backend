@@ -7,6 +7,7 @@ export const authenticateJWT = (
   res: Response,
   next: NextFunction,
 ): void => {
+  console.log('Incoming request:', req.path, req.headers);
   try {
     const internalAuth = req.headers['x-internal-auth'];
     if (internalAuth === process.env.INTERNAL_SECRET) {

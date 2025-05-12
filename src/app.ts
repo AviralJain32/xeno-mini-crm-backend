@@ -20,14 +20,16 @@ import { authenticateJWT } from './middlewares/auth';
 const app = express();
 const swaggerDocument = YAML.load('./src/swagger.yaml');
 
+app.use(cookieParser());
+app.use(bodyParser.json());
+
 app.use(
   cors({
     origin: process.env.FRONTEND_URL,
     credentials: true,
   }),
 );
-app.use(cookieParser());
-app.use(bodyParser.json());
+
 
 app.use(
   session({ secret: process.env.SESSION_SECRET!, resave: false, saveUninitialized: true }),
