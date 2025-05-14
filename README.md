@@ -48,6 +48,7 @@ Create `.env` file:
 # .env.example
 
 NODE_ENV=development
+APP_ENV=dev
 PORT=5000
 
 # MongoDB

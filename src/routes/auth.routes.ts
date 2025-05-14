@@ -27,8 +27,8 @@ router.get(
     // Set token in HTTP-only secure cookie
     res.cookie('token', token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
+      secure: process.env.APP_ENV === 'prod',
+      sameSite: process.env.APP_ENV === 'prod' ? 'none' : 'lax',
       maxAge: 3600 * 1000 * 24, // 24 hours
       path: '/',
     });
@@ -42,8 +42,8 @@ router.get(
 router.get('/logout', (req, res) => {
   res.clearCookie('token', {
     httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
-    sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
+    secure: process.env.APP_ENV === 'prod',
+    sameSite: process.env.APP_ENV === 'prod' ? 'none' : 'lax',
   });
   res.json({ message: 'Logged out' });
 });

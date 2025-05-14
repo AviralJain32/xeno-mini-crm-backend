@@ -3,7 +3,7 @@ import { Kafka } from 'kafkajs';
 
 dotenv.config();
 
-const isProd = process.env.NODE_ENV === 'production';
+const isProd = process.env.APP_ENV === 'prod';
 
 export const kafka = new Kafka({
   clientId: process.env.KAFKA_CLIENT_ID || 'xeno-app',
