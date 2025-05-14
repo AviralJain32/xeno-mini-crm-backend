@@ -141,7 +141,7 @@ export const getAllSegments = async (
         path: 'userId',
         select: 'name',
       })
-      .select('name audienceSize createdAt userId');
+      .select('name audienceSize createdAt userId').sort({ createdAt: -1 });;
 
     const response = new ApiResponse(
       200,

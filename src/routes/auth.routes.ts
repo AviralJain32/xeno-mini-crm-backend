@@ -26,12 +26,13 @@ router.get(
 
     // Set token in HTTP-only secure cookie
     res.cookie('token', token, {
-    httpOnly: true,
-    secure: true, 
-    sameSite: 'none',                              
-    maxAge: 3600 * 1000 * 24,  
-    path: '/',                   
-  });
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
+      maxAge: 3600 * 1000 * 24, // 24 hours
+      path: '/',
+    });
+
     console.log('mai yaha hu');
     res.redirect(`${process.env.FRONTEND_URL}/login?token=${token}`);
   },
@@ -39,7 +40,11 @@ router.get(
 
 
 router.get('/logout', (req, res) => {
-  res.clearCookie('token');
+  res.clearCookie('token', {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
+  });
   res.json({ message: 'Logged out' });
 });
 

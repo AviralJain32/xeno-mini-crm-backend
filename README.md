@@ -69,10 +69,7 @@ INTERNAL_SECRET=your_internal_secret
 
 # Kafka
 KAFKA_CLIENT_ID=xeno-app
-KAFKA_BROKERS=your_kafka_broker_url
-KAFKA_USERNAME=your_kafka_username
-KAFKA_PASSWORD=your_kafka_password
-
+KAFKA_BROKERS=localhost:9092
 
 ```
 
