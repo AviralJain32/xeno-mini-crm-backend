@@ -1,5 +1,5 @@
 
-# Xeno Mini CRM - Backend
+# Mini CRM - Backend
 
 A scalable, efficient backend system for managing customer segmentation, campaign delivery, and audience analytics for the Xeno Mini CRM platform. Built using Node.js, Express, TypeScript, MongoDB, Kafka, and Passport.js for OAuth login.
 
@@ -32,8 +32,8 @@ A scalable, efficient backend system for managing customer segmentation, campaig
 Clone the repository:
 
 ```bash
-git clone https://github.com/your-username/xeno-mini-crm-backend.git
-cd xeno-mini-crm-backend
+git clone https://github.com/your-username/mini-crm-backend.git
+cd mini-crm-backend
 ```
 
 Install dependencies:
@@ -52,7 +52,7 @@ APP_ENV=dev
 PORT=5000
 
 # MongoDB
-MONGO_URI=mongodb://localhost:27017/xeno-crm
+MONGO_URI=mongodb://localhost:27017/mini-crm
 
 # App URLs
 FRONTEND_URL=http://localhost:3000
@@ -69,7 +69,7 @@ JWT_SECRET=your_jwt_secret
 INTERNAL_SECRET=your_internal_secret
 
 # Kafka
-KAFKA_CLIENT_ID=xeno-app
+KAFKA_CLIENT_ID=my-app
 KAFKA_BROKERS=localhost:9092
 
 ```
