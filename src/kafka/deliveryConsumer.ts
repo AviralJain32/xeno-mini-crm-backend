@@ -19,7 +19,7 @@ export const startKafkaConsumer = async () => {
       for (const message of batch.messages) {
         const data = JSON.parse(message.value?.toString() || '{}');
 
-        // Call the vendor API (simulate delivery)
+        // Call the vendor API to simulate delivery
         await axios.post(
           `${process.env.BACKEND_URL}/api/communicationlogs/vendor/send`,
           {
